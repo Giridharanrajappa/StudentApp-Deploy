@@ -1,9 +1,9 @@
 FROM tomcat:9-jdk17
 
-# Remove default Tomcat apps
+# Remove default apps
 RUN rm -rf /usr/local/tomcat/webapps/*
 
-# Deploy ROOT.war directly
+# Copy your war as ROOT
 COPY ROOT.war /usr/local/tomcat/webapps/ROOT.war
 
 EXPOSE 8080
