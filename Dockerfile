@@ -1,15 +1,13 @@
-FROM tomcat:9.0-jdk17
+FROM tomcat:9-jdk17
 
-# Remove default ROOT app if exists
+# Remove default webapps
 RUN rm -rf /usr/local/tomcat/webapps/*
 
-# Copy WAR to tomcat webapps
-COPY ROOT.war /usr/local/tomcat/webapps/ROOT.war
+# Deploy your application
+COPY StudentApp.war /usr/local/tomcat/webapps/ROOT.war
 
-# Copy startup script
-COPY start.sh /usr/local/tomcat/
+# Start Tomcat
+COPY start.sh /start.sh
+RUN chmod +x /start.sh
 
-RUN chmod +x /usr/local/tomcat/start.sh
-
-CMD ["/usr/local/tomcat/start.sh"]
-
+CMD ["/start.sh"]
