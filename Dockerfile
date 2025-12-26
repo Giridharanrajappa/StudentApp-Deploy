@@ -1,10 +1,15 @@
-FROM tomcat:9.0
+FROM tomcat:9.0-jdk17
 
-# Remove default ROOT and other apps
+# Remove default ROOT app if exists
 RUN rm -rf /usr/local/tomcat/webapps/*
 
-# Deploy your WAR as ROOT.war
-COPY StudentApp.war /usr/local/tomcat/webapps/ROOT.war
+# Copy WAR to tomcat webapps
+COPY ROOT.war /usr/local/tomcat/webapps/ROOT.war
 
-EXPOSE 8080
-CMD ["catalina.sh", "run"]
+# Copy startup script
+COPY start.sh /usr/local/tomcat/
+
+RUN chmod +x /usr/local/tomcat/start.sh
+
+CMD ["/usr/local/tomcat/start.sh"]
+
